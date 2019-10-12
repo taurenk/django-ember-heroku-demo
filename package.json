@@ -1,0 +1,11 @@
+{
+    "private": true,
+    "scripts": {
+      "build": "npm run build --prefix=demosite/ember",
+      "test": "npm run lint --prefix=superrentals/ember && npm test --prefix=demosite/ember",
+      "start": "npm start --prefix=demosite/ember"
+    },
+    "engines": {
+      "node": "10.15"
+    }
+  }

@@ -3,9 +3,9 @@ Basic heroku app demo'ing abilty for a django app to host a bundled ember app.
 
 ## Deployment 
 
--> `git push heroku master`
-
-enable labs -> `heroku labs:enable runtime-dyno-metadata -a frozen-inlet-30069`
+- Basic Push -> `git push heroku master`
+- Rename -> `heroku apps:rename newname --app oldname`
+- Enable Metadata -> `heroku labs:enable runtime-dyno-metadata -a frozen-inlet-30069`
 
 ## Local Development
 TODO

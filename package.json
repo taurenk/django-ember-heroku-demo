@@ -1,6 +1,7 @@
 {
     "private": true,
     "scripts": {
+      "postinstall": "npm install --prefix=demosite/ember",
       "build": "npm run build --prefix=demosite/ember",
       "test": "npm run lint --prefix=superrentals/ember && npm test --prefix=demosite/ember",
       "start": "npm start --prefix=demosite/ember"

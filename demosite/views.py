@@ -46,7 +46,6 @@ def ember(request, **kwargs):
             # 'lr_enabled': settings.LIVERELOAD_ENABLED,
             # 'lr_port': settings.LIVERELOAD_PORT
             }
-    # import pdb; pdb.set_trace()
     
     content = loader.render_to_string('index.html', context)
 

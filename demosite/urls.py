@@ -14,10 +14,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from .views import health_check, home
+from django.urls import path, re_path
+from .views import health_check, home, ember
 
 urlpatterns = [
-    path('', home, name='home'),
+    path('app', ember, name="home"),
+    # re_path(r'^/about/?$', ember),
+    # re_path(r'^/contact/?$', ember),
+    # re_path(r'^/rentals/?$', ember),
+    # re_path(r'^/rentals/.*/?$', ember),
+    
     path('health', health_check, name='health'),
 ]

@@ -102,3 +102,8 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+/demosite/static
+demosite/static/*
+demosite/static/*/*
+demosite/www/*

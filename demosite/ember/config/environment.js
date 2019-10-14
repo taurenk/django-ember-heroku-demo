@@ -5,7 +5,9 @@ module.exports = function(environment) {
     modulePrefix: 'super-rentals',
     environment,
     rootURL: '/',
-    locationType: 'auto',
+    // https://github.com/ember-cli/embåer-cli/issues/3861
+    // 
+    locationType: 'none',
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build

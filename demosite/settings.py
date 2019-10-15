@@ -44,24 +44,26 @@ ALLOWED_HOSTS = ['*']
 
 # Application definition
 INSTALLED_APPS = [
+    'whitenoise.runserver_nostatic',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    # 'django.contrib.staticfiles',
-    'whitenoise.runserver_nostatic',
+    'django.contrib.staticfiles',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    # should be placed directly after the Django SecurityMiddleware 
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'demosite.urls'
@@ -139,6 +141,7 @@ STATIC_URL = '/static/'
 # defines the single folder you want to collect all your static files into
 WHITENOISE_ROOT = os.path.join(DJANGO_ROOT, 'www')
 STATIC_ROOT = os.path.join(WHITENOISE_ROOT, 'static')
+
 
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = [

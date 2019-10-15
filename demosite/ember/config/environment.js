@@ -6,7 +6,6 @@ module.exports = function(environment) {
     environment,
     rootURL: '/',
     // https://github.com/ember-cli/embåer-cli/issues/3861
-    // 
     locationType: 'none',
     EmberENV: {
       FEATURES: {

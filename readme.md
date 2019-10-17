@@ -1,28 +1,38 @@
 # Django Ember Heroku Demo
-Basic heroku app demo'ing abilty for a django app to host a bundled ember app. 
+The basic POC for this repo is a Django app that serves an Ember single-page-app via a route url all running on heroku. 
 
-## Deployment 
-- Basic Push -> `git push heroku master`
-- Rename -> `heroku apps:rename newname --app oldname`
-- Enable Metadata -> `heroku labs:enable runtime-dyno-metadata -a frozen-inlet-30069`
+I have also thrown in a review app pipeline for fun. 
+
+## Heroku Deployment 
+If you run into any trouble, check out https://devcenter.heroku.com/articles/git#for-a-new-heroku-app. But basic pipeline:
+
+1) `heroku create` -> Create an app in Heroku
+    1a) if you get a fun name such as "frozen-lava-inuit", you can rename it via `heroku apps:rename your-new-name --app old-name`
+    1b) You can enable some [helpful config info](https://devcenter.heroku.com/articles/dyno-metadata) with `heroku labs:enable runtime-dyno-metadata -a your-app-name`
+2) `git push heroku master` -> pushes your latest master branch code to heroku for a deployment
+
+Thats it.
+
 
 ## Local Development
-1. `pipenv install`
-2. `npm install` 
-3. `pipenv shell`: activate pipenv
-4. `foreman start -f Procfile.dev`: start django + ember
+
+### Up and Running
+The easiest setup is as follows:
+1. `pipenv install` -> Setup pipenv + install dependencies
+2. `npm install` -> Install Ember app dependencies
+3. `pipenv shell` ->  Activate pipenv environemnt
+4. `foreman start -f Procfile.dev` -> Starts both Django + Ember in live reload mode
+
+You can of course run Django and Ember indepently, by running:
+`pipenv run ./manage.py runserver` and `npm run` in different tabs
 
 
-### Some funkiness on inital deploy; https://stackoverflow.com/questions/36665889/collectstatic-error-while-deploying-django-app-to-heroku
-`heroku config:set DISABLE_COLLECTSTATIC=1`
+## Architecture + Notes
 
+### Django Config 
+- Whitenoise
+- Database config 
 
-# Ember Setup
-You may notice the package.json in the main directory, the NodeJS buildpack looks in this directory for a package.json but ours is in the `demosite/ember` directory. This will just foward the buildback to our actual js code. The order is:
-
-- The buildpack will first run `npm install`. This will do nothing since there is no dependencies. 
-- Next, the `postinstall` hook will be run. This will forward the buildpack to the actual package.json for install.
-- Next, `build` will get run. again this will call our actual package.json.
-- Done.
-
-
+### TODO; Ember Config 
+- routing with a prefix
+- Build path

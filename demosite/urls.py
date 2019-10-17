@@ -18,11 +18,6 @@ from django.urls import path, re_path
 from .views import health_check, home, ember
 
 urlpatterns = [
-    path('app', ember, name="home"),
-    # re_path(r'^/about/?$', ember),
-    # re_path(r'^/contact/?$', ember),
-    # re_path(r'^/rentals/?$', ember),
-    # re_path(r'^/rentals/.*/?$', ember),
-    
+    path('', ember, name="home"),    
     path('health', health_check, name='health'),
 ]

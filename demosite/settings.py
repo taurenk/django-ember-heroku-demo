@@ -9,12 +9,10 @@ https://docs.djangoproject.com/en/2.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
-
 import os
 import dj_database_url
 from decouple import config
 
-# PPEND_SLASH=True
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 # BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -30,7 +28,6 @@ SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
-TEMPLATE_DEBUG = DEBUG
 
 if DEBUG:
     import logging
@@ -56,8 +53,8 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     # should be placed directly after the Django SecurityMiddleware 
+    # http://whitenoise.evans.io/en/stable/django.html#enable-whitenoise
     'whitenoise.middleware.WhiteNoiseMiddleware',
-
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -90,11 +87,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'demosite.wsgi.application'
 
+#########################
+##  Database Config ##
+#######################
 
-# Database
-# https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 # Heroku Requires SSL
 DATABASE_SSL = config('DATABASE_SSL', default=True, cast=bool)
+
+# https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 DATABASES = {
     'default': dj_database_url.config(conn_max_age=600,
                                       ssl_require=DATABASE_SSL),
@@ -132,22 +132,25 @@ USE_L10N = True
 
 USE_TZ = True
 
+############################
+## Static File Config  
+##########################
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.2/howto/static-files/
-# What the URL will be to the static file...
+# The URL prefix under which static files will be served.
+# http://whitenoise.evans.io/en/stable/django.html#WHITENOISE_STATIC_PREFIX
 STATIC_URL = '/static/'
 
-# defines the single folder you want to collect all your static files into
+# Defines the single folder you want to collect all your static files into
+# http://whitenoise.evans.io/en/stable/django.html#make-sure-staticfiles-is-configured-correctly
 WHITENOISE_ROOT = os.path.join(DJANGO_ROOT, 'www')
 STATIC_ROOT = os.path.join(WHITENOISE_ROOT, 'static')
 
-
 # Extra places for collectstatic to find static files.
+# By default it only looks in app directories such as /auth/static..
 STATICFILES_DIRS = [
     os.path.join(DJANGO_ROOT, 'static'),
 ]
 
-# Simplified static file serving.
+# How whitenoise should store the the collected files
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
